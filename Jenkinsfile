@@ -18,9 +18,9 @@ pipeline {
           credentialsId: 'git_tim',
         ]]
        ])
-     }
-  }
+      }
     }
+  }
     post {
         always {
             script {
