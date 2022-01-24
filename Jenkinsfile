@@ -27,6 +27,5 @@ pipeline {
             step([$class: 'WsCleanup'])
        }
     }
-}
   }
-//testing 2
+}
