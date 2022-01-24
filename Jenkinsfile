@@ -12,7 +12,7 @@ pipeline {
     steps {
       checkout([
         $class: 'GitSCM',
-        branches: [[name: '*']],
+        branches: [[name: 'master']],
         userRemoteConfigs: [[
           url: 'https://github.com/TimPervomayskiy/task6.git',
           credentialsId: 'git_tim',
