@@ -28,7 +28,7 @@ pipeline {
          sh 'git checkout master'
          sh 'git merge develop'
          sh """git commit -m 'merge from $JOB_NAME' """
-         sh 'git push origin master'
+         sh 'git push'
           }
         }
       }
