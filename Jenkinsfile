@@ -20,6 +20,12 @@ pipeline {
        ])
      }
   }
+  stages {
+    stage('git merge') {
+      steps {
+        sh 'printenv'
+      }
+    }
     }
     post {
         always {
