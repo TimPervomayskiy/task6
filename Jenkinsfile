@@ -23,7 +23,15 @@ pipeline {
   stages {
     stage('git merge') {
       steps {
-        sh 'printenv'
+        script {
+        withCredentials([gitUsernamePassword(credentialsId: 'git_tim', gitToolName: 'git')]) {
+         sh 'git checkout master'
+         sh 'git merge develop'
+         sh 'git add .'
+         sh """git commit -m 'merge from $JOB_NAME' """
+         sh 'git push origin master'
+          }
+        }
       }
     }
     }
