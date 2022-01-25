@@ -20,7 +20,6 @@ pipeline {
        ])
      }
   }
-  stages {
     stage('git merge') {
       steps {
         script {
@@ -32,7 +31,6 @@ pipeline {
           }
         }
       }
-    }
     }
   }
     post {
