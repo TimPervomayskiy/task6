@@ -27,6 +27,7 @@ pipeline {
       }
     }
     }
+  }
     post {
         always {
             script {
@@ -35,3 +36,4 @@ pipeline {
     }
   }
 }
+//test
