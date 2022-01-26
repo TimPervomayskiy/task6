@@ -5,23 +5,27 @@ pipeline {
     stages {
       stage('checkoput') {
         steps {
-          checkout([
-            $class: 'GitSCM',
-            branches: [[name: '*']],
-            userRemoteConfigs: [[
-              url: 'https://github.com/TimPervomayskiy/task6.git',
-              credentialsId: 'git_tim',
-            ]]
-            [
-            $class: "PreBuildMerge",
-            options: [
-              mergeTarget: "develop",
-              fastForwardMode: "FF",
-              mergeRemote: "origin",
-              mergeStrategy: "OURS"
-        ]
-]
-           ])
+         checkout(
+     [
+     $class: 'GitSCM',
+     branches: [[name: '*']],
+     userRemoteConfigs: [[
+       url: 'https://github.com/TimPervomayskiy/task6.git',
+       credentialsId: 'git_tim',
+     ]]
+         extensions: [
+             [
+                 $class: "PreBuildMerge",
+                 options: [
+                     mergeTarget: "develop",
+                     fastForwardMode: "FF",
+                     mergeRemote: "origin",
+                     mergeStrategy: "RECURSIVE_THEIRS"
+                 ],
+             ],
+         ],
+     ]
+ )
         }
       }
       stage('print all env') {
