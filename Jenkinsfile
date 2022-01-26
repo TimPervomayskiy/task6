@@ -8,11 +8,11 @@ pipeline {
          checkout(
      [
      $class: 'GitSCM',
-     //branches: [[name: '*']],
-     //userRemoteConfigs: [[
-      // url: 'https://github.com/TimPervomayskiy/task6.git',
-      // credentialsId: 'git_tim',
-     //]]
+     branches: [[name: '*']],
+     userRemoteConfigs: [[
+       url: 'https://github.com/TimPervomayskiy/task6.git',
+       credentialsId: 'git_tim',
+     ]],
          extensions: [
              [
                  $class: "PreBuildMerge",
@@ -22,14 +22,6 @@ pipeline {
                      mergeRemote: "origin",
                      mergeStrategy: "RECURSIVE_THEIRS"
                  ],
-             ],
-             [
-                 //$class: "GitSCM",
-                 branches: [[name: '*']],
-                 userRemoteConfigs: [[
-                   url: 'https://github.com/TimPervomayskiy/task6.git',
-                   credentialsId: 'git_tim',
-                 ]]
              ],
          ],
      ]
