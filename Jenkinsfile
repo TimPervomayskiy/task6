@@ -3,12 +3,17 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     agent any
     stages {
+    stage('cat') {
+      steps {
+        sh 'cat ./Jenkinsfile'
+      }
+    }
       stage('checkoput') {
         steps {
          checkout(
      [
      $class: 'GitSCM',
-     branches: [[name: 'master']],
+     branches: [[name: '*']],
      userRemoteConfigs: [[
        url: 'https://github.com/TimPervomayskiy/task6.git',
        credentialsId: 'git_tim',
@@ -42,8 +47,8 @@ pipeline {
     post {
         always {
             script {
-        //    step([$class: 'WsCleanup'])
-        sh 'ls -l'
+          //  step([$class: 'WsCleanup'])
+          sh 'cat ./Jenkinsfile'
        }
     }
   }
