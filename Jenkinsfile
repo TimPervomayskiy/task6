@@ -23,6 +23,11 @@ pipeline {
                      mergeStrategy: "RECURSIVE_THEIRS"
                  ],
              ],
+            [
+                $class: 'UserIdentity',
+                email: 'test@test.com',
+                name: 'clown'
+            ],
          ],
      ]
  )
