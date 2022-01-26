@@ -3,7 +3,7 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     agent any
     stages {
-    stage('cat') {
+    stage('test for check merge') {
       steps {
         sh 'cat ./Jenkinsfile'
       }
@@ -41,16 +41,15 @@ pipeline {
       stage('print all env') {
         steps {
           sh 'printenv'
+          sh 'cat ./Jenkinsfile'
         }
       }
   }
     post {
         always {
             script {
-          //  step([$class: 'WsCleanup'])
-          sh 'cat ./Jenkinsfile'
+            step([$class: 'WsCleanup'])
        }
     }
   }
 }
-//test_merge
