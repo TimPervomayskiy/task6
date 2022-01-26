@@ -43,6 +43,7 @@ pipeline {
         always {
             script {
         //    step([$class: 'WsCleanup'])
+        sh 'ls -l'
        }
     }
   }
