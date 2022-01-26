@@ -2,15 +2,19 @@ properties([pipelineTriggers([githubPush()])])
 
 pipeline {
     agent any
-    checkout([
-      $class: 'GitSCM',
-      branches: [[name: '*']],
-      userRemoteConfigs: [[
-        url: 'https://github.com/TimPervomayskiy/task6.git',
-        credentialsId: 'git_tim',
-      ]]
-     ])
     stages {
+      stage('checkoput') {
+        steps {
+          checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*']],
+            userRemoteConfigs: [[
+              url: 'https://github.com/TimPervomayskiy/task6.git',
+              credentialsId: 'git_tim',
+            ]]
+           ])
+        }
+      }
       stage('print all env') {
         steps {
           sh 'printenv'
