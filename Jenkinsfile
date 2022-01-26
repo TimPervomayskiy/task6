@@ -36,7 +36,8 @@ pipeline {
     post {
         always {
             script {
-            step([$class: 'WsCleanup'])
+            //step([$class: 'WsCleanup'])
+            sh 'ls -l'
        }
     }
   }
