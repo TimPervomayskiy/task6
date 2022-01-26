@@ -8,7 +8,7 @@ pipeline {
         sh 'cat ./Jenkinsfile'
       }
     }
-      stage('checkoput') {
+      stage('checkout') {
         steps {
          checkout(
      [
