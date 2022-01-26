@@ -24,7 +24,7 @@ pipeline {
                  ],
              ],
              [
-                 $class: "GitSCM",
+                 //$class: "GitSCM",
                  branches: [[name: '*']],
                  userRemoteConfigs: [[
                    url: 'https://github.com/TimPervomayskiy/task6.git',
