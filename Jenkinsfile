@@ -15,10 +15,10 @@ pipeline {
             [
             $class: "PreBuildMerge",
             options: [
-            mergeTarget: "develop",
-            fastForwardMode: "FF",
-            mergeRemote: "origin",
-            mergeStrategy: "OURS"
+              mergeTarget: "develop",
+              fastForwardMode: "FF",
+              mergeRemote: "origin",
+              mergeStrategy: "OURS"
         ]
 ]
            ])
