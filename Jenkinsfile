@@ -12,6 +12,15 @@ pipeline {
               url: 'https://github.com/TimPervomayskiy/task6.git',
               credentialsId: 'git_tim',
             ]]
+            [
+            $class: "PreBuildMerge",
+            options: [
+            mergeTarget: "develop",
+            fastForwardMode: "FF",
+            mergeRemote: "origin",
+            mergeStrategy: "OURS"
+        ]
+]
            ])
         }
       }
