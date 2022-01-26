@@ -23,6 +23,14 @@ pipeline {
                      mergeStrategy: "RECURSIVE_THEIRS"
                  ],
              ],
+             [
+                 $class: "GitSCM",
+                 branches: [[name: '*']],
+                 userRemoteConfigs: [[
+                   url: 'https://github.com/TimPervomayskiy/task6.git',
+                   credentialsId: 'git_tim',
+                 ]]
+             ],
          ],
      ]
  )
