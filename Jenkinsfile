@@ -3,6 +3,11 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     agent any
     stages {
+    stage('cat') {
+      steps {
+        sh 'cat ./Jenkinsfile'
+      }
+    }
       stage('checkoput') {
         steps {
          checkout(
@@ -43,6 +48,7 @@ pipeline {
         always {
             script {
           //  step([$class: 'WsCleanup'])
+          sh 'cat ./Jenkinsfile'
        }
     }
   }
