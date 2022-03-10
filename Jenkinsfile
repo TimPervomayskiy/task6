@@ -48,6 +48,7 @@ pipeline {
     post {
         always {
             script {
+            emailext attachLog: true, body: '*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} More info at: ${env.BUILD_URL}', recipientProviders: [developers(), culprits(), upstreamDevelopers()], subject: '$JOB_NAME', to: 'i.zhdanovich@softteco.com'
             step([$class: 'WsCleanup'])
        }
     }
