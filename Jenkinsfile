@@ -46,10 +46,10 @@ pipeline {
       }
   stage('print message') {
     steps {
-        sh "./branche.sh"
+        sh "./branch.sh"
   }
 }
-}    
+}
 
 post {
         always {
