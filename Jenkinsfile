@@ -47,15 +47,13 @@ pipeline {
   }
   stage('print message') {
     steps {
-      script {
-        if [[ "$GIT_BRANCH" == "develop" ]]; then
+        sh "if [[ "$GIT_BRANCH" == "develop" ]]; then
           echo "I’m the best developer ever"
         elif [[ "$GIT_BRANCH" == "master" ]]; then
           echo "I’m the best DevOps ever"
         else
           echo "fail" $GIT_BRANCH
-        fi
-      }
+        fi"
     }
   }
 }    post {
