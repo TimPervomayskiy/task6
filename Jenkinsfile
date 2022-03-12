@@ -44,11 +44,17 @@ pipeline {
           sh 'cat ./Jenkinsfile'
         }
       }
+  stage('print message') {
+    steps {
+        sh "./branch.sh"
   }
-    post {
+}
+}
+
+post {
         always {
             script {
-            emailext attachLog: true, body: '*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} More info at: ${env.BUILD_URL}', recipientProviders: [developers(), culprits(), upstreamDevelopers()], subject: '$JOB_NAME', to: 'zhdanovich.ilya98@gmail.com' 
+            emailext attachLog: true, body: '*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} More info at: ${env.BUILD_URL}', recipientProviders: [developers(), culprits(), upstreamDevelopers()], subject: '$JOB_NAME', to: 'zhdanovich.ilya98@gmail.com'
             step([$class: 'WsCleanup'])
        }
     }
