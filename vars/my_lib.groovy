@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def info1(message) {
+def info(message) {
     echo "INFO: ${message}"
 }
 
