@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def info(message) {
+def info1(message) {
     echo "INFO: ${message}"
 }
 
@@ -8,6 +8,6 @@ def warning(message) {
     echo "WARNING: ${message}"
 }
 
-def hello(){
+def hello() {
     echo "Hello, Ilya!"
 }
