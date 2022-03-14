@@ -7,3 +7,7 @@ def info(message) {
 def warning(message) {
     echo "WARNING: ${message}"
 }
+
+def hello() {
+    echo "Hello, Ilya!"
+}
