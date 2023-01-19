@@ -8,7 +8,7 @@ pipeline {
         stage('stage with node-js-15') {
           when { environment name: 'NGINX_ONLY', value: 'false' }
           steps {
-            sh "ls -l && cd ./api && bash ./api/scripts/test.sh"
+            sh "cd ./api && bash ./scripts/test.sh"
           }
         }
       }
