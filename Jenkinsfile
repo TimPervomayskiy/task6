@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('stage with node-js-15') {
           steps {
-            sh "show $BRANCH"
+            sh "echo $BRANCH"
           }
         }
       }
