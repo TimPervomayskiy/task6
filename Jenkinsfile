@@ -6,9 +6,8 @@ pipeline {
         }
     stages {
         stage('stage with node-js-15') {
-          when { environment name: 'NGINX_ONLY', value: 'false' }
           steps {
-            sh "cd ./api && bash ./scripts/test.sh"
+            sh "show $BRANCH"
           }
         }
       }
