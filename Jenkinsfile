@@ -18,11 +18,18 @@ pipeline {
             }
           }
         }
-        stage('stage 3) {
+        stage('stage 3') {
           steps {
             git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/simple-nodejs-server.git'
             script {
             sh "echo $BRANCH && ls -l"
+            }
+          }
+        }
+        stage('stage 4') {
+          steps {
+            script {
+            sh "ls -l && ls -l .."
             }
           }
         }
