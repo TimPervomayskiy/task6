@@ -7,7 +7,15 @@ pipeline {
     stages {
         stage('stage with node-js-15') {
           steps {
-            sh "echo $BRANCH"
+            sh "echo $BRANCH && ls -l"
+          }
+        }
+        stage('stage with node-js-15') {
+          steps {
+            git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/gdown.git'
+            script {
+            sh "echo $BRANCH && ls -l"
+            }
           }
         }
       }
