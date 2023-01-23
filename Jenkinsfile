@@ -5,23 +5,20 @@ pipeline {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH', description: 'Please select branch which you want to use'
         }
     stages {
-        stage('stage with node-js-15') {
+        stage('stage 1') {
           steps {
             sh "echo $BRANCH && ls -l"
           }
         }
         stage('stage 2') {
           steps {
-            git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/gdown.git'
             script {
-            sh "echo $BRANCH && ls -l"
+              dir('gdown') {
+                git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/gdown.git'
             }
+            dir('simple-nodejs-server.git') {
+              git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/simple-nodejs-server.git'
           }
-        }
-        stage('stage 3') {
-          steps {
-            git credentialsId: 'git_new', url: 'https://github.com/Zhdanovich98/simple-nodejs-server.git'
-            script {
             sh "echo $BRANCH && ls -l"
             }
           }
