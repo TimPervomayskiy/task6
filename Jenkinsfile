@@ -10,7 +10,21 @@ pipeline {
         PASS_TO_CONF_DIR = "./api/pipelines/"
         CHAT_ID="-222791277"
     }
-    stages {
+        stages {
+        stage('stage 1') {
+          steps {
+            script {
+              step([$class: 'WsCleanup'])
+            }
+          }
+        }
+        stage('stage 2') {
+          steps {
+            script {
+            sh "ls -l && ls -l .."
+            }
+          }
+        }
         stage('create folders') {
           steps {
             dir('dialmyappproxy') {
@@ -21,26 +35,12 @@ pipeline {
             }
           }
         }
-        stage('stage 2') {
+        stage('stage 3') {
           steps {
             script {
               sh "ls -l && ls -l ./dialmyappproxy && ls -l ./dma-configs"
             }
           }
         }
-        stage('stage 4') {
-          steps {
-            script {
-            sh "ls -l && ls -l .."
-            }
-          }
-        }
       }
-    post {
-        always {
-            script {
-            step([$class: 'WsCleanup'])
-       }
-    }
-  }
 }
