@@ -55,7 +55,7 @@ pipeline {
                   export GCS_FOLDER="gs://sip-updates/$BRANCH"
                   echo $GIT_COMMIT_DATE $ORIGIN_BRANCH $GCS_FOLDER
                   chmod a+x build.sh
-                  touch dialmyappproxy/output/test_artifact.txt
+                  mkdir output
               '''
             }
           }
