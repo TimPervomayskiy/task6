@@ -64,7 +64,7 @@ pipeline {
     post {
         always {
             script {
-            sh "end"
+            sh "echo end"
        }
     }
   }
