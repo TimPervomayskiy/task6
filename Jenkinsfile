@@ -35,11 +35,28 @@ pipeline {
             }
           }
         }
-        stage('stage 3') {
+        stage('env preparation') {
           steps {
             script {
-              sh "ls -l && ls -l ./dialmyappproxy && ls -l ./dma-configs"
-              sh "cd ./dialmyappproxy && git status"
+              sh "chmod +x ./dma-configs/api/deploy/env.sh"
+              sh "./dma-configs/api/deploy/env.sh"
+            }
+          }
+        }
+        stage('run build step') {
+          steps {
+            script {
+              def props = readProperties  file: './variables.properties'
+              sh '''
+                #!/bin/bash
+                  cd ./dialmyappproxy
+                  export GIT_COMMIT_DATE=$(git -C ./ log -1 --format=%cd)
+                  export ORIGIN_BRANCH=$BRANCH
+                  export GCS_FOLDER="gs://sip-updates/$BRANCH"
+                  echo $GIT_COMMIT_DATE $ORIGIN_BRANCH $GCS_FOLDER
+                  chmod a+x build.sh
+                  ./build.sh
+              '''
             }
           }
         }
