@@ -64,7 +64,7 @@ pipeline {
     post {
         always {
             script {
-            step([$class: 'WsCleanup'])
+            sh "end"
        }
     }
   }
