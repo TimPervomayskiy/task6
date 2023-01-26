@@ -49,6 +49,7 @@ pipeline {
             script {
               sh "chmod +x ./dma-configs/api/deploy/env.sh"
               sh "./dma-configs/api/deploy/env.sh"
+              sh "printenv"
             }
           }
         }
