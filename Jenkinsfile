@@ -55,28 +55,21 @@ pipeline {
               def props = readProperties  file: './variables.properties'
               sh '''
                 #!/bin/bash
-                  cd ./dialmyappproxy
+                  cd dma-webrtc-proxy
                   export GIT_COMMIT_DATE=$(git -C ./ log -1 --format=%cd)
                   export ORIGIN_BRANCH=$BRANCH
-                  export GCS_FOLDER="gs://sip-updates/$BRANCH"
-                  echo $GIT_COMMIT_DATE $ORIGIN_BRANCH $GCS_FOLDER
+                  export GCS_FOLDER="gs://sip-updates/web-rtc/$BRANCH"
                   chmod a+x build.sh
-                  mkdir output
+                  ./build.sh
               '''
             }
           }
         }
-        stage('test artif') {
-          steps {
-            script {
-              sh "touch dialmyappproxy/output/test_artifact.txt"
-            }
-          }
-        }
+
       }
       post {
         always {
-          archiveArtifacts artifacts: 'dialmyappproxy/output/**', fingerprint: true
+          sh "echo test"
         }
     }
 }
