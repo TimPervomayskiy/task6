@@ -36,12 +36,12 @@ pipeline {
             script {
               if (binding.variables.containsKey('BRANCH')) {
                   ORIGIN_BRANCH = binding.variables.get('BRANCH').replace('refs/heads', 'origin')
+                  println $ORIGIN_BRANCH
                   return [
                        ORIGIN_BRANCH: ORIGIN_BRANCH,
                        GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
                        ]
               }
-              sh "echo $ORIGIN_BRANCH"
             }
           }
         }
