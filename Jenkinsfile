@@ -7,12 +7,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
     parameters {
-      choice(name: 'BRANCH', choices: ['master'], description: 'Please select branch which you want to use')
-      booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build image only without deployment update')
-      choice(name: 'ENVIRONMENT', choices: ['development', 'production', 'production-br'], description: 'Please select cluster which you want to update')
-    }
+      choice(name: 'BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
     environment {
-        PASS_TO_CONF_DIR = "./api/pipelines/"
+        PASS_TO_CONF_DIR = "api/pipelines/sip/"
         CHAT_ID="-222791277"
     }
     stages {
@@ -25,19 +22,25 @@ pipeline {
         }
         stage('directory preparation') {
           steps {
-            dir('dma-webrtc-proxy') {
-                git branch: '$BRANCH', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-webrtc-proxy.git'
+            dir('dialmyappproxy') {
+                git branch: '$BRANCH', credentialsId: 'e8f03bab-9bbb-4d52-90d9-face976d480d', url: 'git@github.com:mbteswedenab/dialmyappproxy.git'
             }
             dir('dma-configs') {
-                git branch: 'master', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
+                git branch: 'master', credentialsId: 'e8f03bab-9bbb-4d52-90d9-face976d480d', url: 'git@github.com:mbteswedenab/dma-configs.git'
             }
           }
         }
         stage('check') {
           steps {
             script {
-              sh "ls -l && ls -l ./dma-webrtc-proxy && ls -l dma-webrtc-proxy"
-              sh "cd ./dma-webrtc-proxy/ && git status"
+              if (binding.variables.containsKey('BRANCH')) {
+                  ORIGIN_BRANCH = binding.variables.get('BRANCH').replace('refs/heads', 'origin')
+                  return [
+                       ORIGIN_BRANCH: ORIGIN_BRANCH,
+                       println ORIGIN_BRANCH,
+                       GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
+                       ]
+              }
             }
           }
         }
@@ -55,12 +58,7 @@ pipeline {
               def props = readProperties  file: './variables.properties'
               sh '''
                 #!/bin/bash
-                  cd dma-webrtc-proxy
-                  export GIT_COMMIT_DATE=$(git -C ./ log -1 --format=%cd)
-                  export ORIGIN_BRANCH=$BRANCH
-                  export GCS_FOLDER="gs://sip-updates/web-rtc/$BRANCH"
-                  chmod a+x build.sh
-                  ./build.sh
+
               '''
             }
           }
