@@ -8,6 +8,7 @@ pipeline {
     }
     parameters {
       choice(name: 'BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+    }
     environment {
         PASS_TO_CONF_DIR = "api/pipelines/sip/"
         CHAT_ID="-222791277"
@@ -39,6 +40,7 @@ pipeline {
                        ORIGIN_BRANCH: ORIGIN_BRANCH,
                        GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
                        ]
+                  println GCS_FOLDER
               }
             }
           }
