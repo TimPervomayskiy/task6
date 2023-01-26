@@ -40,8 +40,8 @@ pipeline {
                        ORIGIN_BRANCH: ORIGIN_BRANCH,
                        GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
                        ]
-                  println GCS_FOLDER
               }
+              sh "echo $ORIGIN_BRANCH"
             }
           }
         }
