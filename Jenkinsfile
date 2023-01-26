@@ -31,7 +31,7 @@ pipeline {
             }
           }
         }
-        stage('check') {
+        stage('set ORIGIN_BRANCH') {
           steps {
             script {
               if (binding.variables.containsKey('BRANCH')) {
@@ -41,9 +41,6 @@ pipeline {
                        GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
                        ]
               }
-              println $ORIGIN_BRANCH
-              println ORIGIN_BRANCH
-              sh "echo $ORIGIN_BRANCH"
             }
           }
         }
@@ -55,18 +52,6 @@ pipeline {
             }
           }
         }
-        stage('run build step') {
-          steps {
-            script {
-              def props = readProperties  file: './variables.properties'
-              sh '''
-                #!/bin/bash
-
-              '''
-            }
-          }
-        }
-
       }
       post {
         always {
