@@ -37,9 +37,9 @@ pipeline {
                   ORIGIN_BRANCH = binding.variables.get('BRANCH').replace('refs/heads', 'origin')
                   return [
                        ORIGIN_BRANCH: ORIGIN_BRANCH,
-                       println ORIGIN_BRANCH,
                        GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
                        ]
+                  println ORIGIN_BRANCH
               }
             }
           }
