@@ -24,10 +24,10 @@ pipeline {
         stage('directory preparation') {
           steps {
             dir('dialmyappproxy') {
-                git branch: '$BRANCH', credentialsId: 'e8f03bab-9bbb-4d52-90d9-face976d480d', url: 'git@github.com:mbteswedenab/dialmyappproxy.git'
+                git branch: '$BRANCH', credentialsId: 'gin_new', url: 'https://github.com/mbteswedenab/dialmyappproxy.git'
             }
             dir('dma-configs') {
-                git branch: 'master', credentialsId: 'e8f03bab-9bbb-4d52-90d9-face976d480d', url: 'git@github.com:mbteswedenab/dma-configs.git'
+                git branch: 'master', credentialsId: 'gin_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
             }
           }
         }
