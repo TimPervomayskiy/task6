@@ -30,6 +30,20 @@ pipeline {
         stage('clean direstory') {
           steps {
             script {
+              listGitBranches(
+                branchFilter: 'origin.*/(.*)',
+                defaultValue: 'default',
+                name: 'test_BRANCH',
+                type: 'BRANCH',
+                remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
+                credentialsId: 'git_new')
+                sh "echo $test_BRANCH"
+            }
+          }
+        }
+        stage('clean direstory') {
+          steps {
+            script {
               step([$class: 'WsCleanup'])
             }
           }
