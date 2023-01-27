@@ -34,7 +34,6 @@ pipeline {
                 type: 'BRANCH',
                 remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
                 credentialsId: 'git_new')
-                sh "echo $test_BRANCH"
             }
           }
         }
