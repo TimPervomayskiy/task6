@@ -16,15 +16,19 @@ pipeline {
       booleanParam(name: 'DELETE_DEPLOYMENT', description: 'Check if you want to delete all service pods before new deployment')
       booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build container only without deployment update')
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
-      choice(name: 'FRONTIER_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
-      choice(name: 'CONFIGS_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
-
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
-        defaultValue: 'default',
-        name: 'test_BRANCH',
+        defaultValue: 'master',
+        name: 'FRONTIER_BRANCH',
         type: 'BRANCH',
         remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
+        credentialsId: 'git_new')
+      listGitBranches(
+        branchFilter: 'refs/heads.*/(.*)',
+        defaultValue: 'master',
+        name: 'CONFIGS_BRANCH',
+        type: 'BRANCH',
+        remoteURL: 'https://github.com/mbteswedenab/dma-configs.git',
         credentialsId: 'git_new')
     }
     environment {
@@ -41,11 +45,19 @@ pipeline {
         }
         stage('directory preparation') {
           steps {
+            dir('dma-configs') {
+                git branch: 'master', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
+            }
             dir('lucy-coil-server') {
                 git branch: '$FRONTIER_BRANCH', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/lucy-coil-server.git'
             }
-            dir('dma-configs') {
-                git branch: 'master', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
+          }
+        }
+        stage('test direstory') {
+          steps {
+            script {
+              sh "ls -l && cd ./dma-configs && git status && cd .."
+              sh "ls -l && cd ./lucy-coil-server && git status && cd .."
             }
           }
         }
