@@ -7,7 +7,20 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
     parameters {
-      choice(name: 'BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+      choice(name: 'SERVICE_NAME', choices: ['frontier', 'frontier-cache', 'frontier-analytic', 'frontier-analytic-reporting', 'frontier-analytic-processing', 'frontier-ivr',
+      'frontier-sip', 'frontier-sb', 'frontier-campaigns', 'frontier-pa', 'frontier-pilot', 'frontier-pg', 'frontier-clickhouse', 'frontier-proxy', 'frontier-tim',
+      'frontier-chat', 'frontier-customization'], description: 'Please select pods which you want to update')
+      choice(name: 'CUSTOMER', choices: ['telcel', 'claro', 'tim', 'test'], description: 'Please select customer for which you want deploy build')
+      choice(name: 'ENVIRONMENT', choices: ['development', 'production', 'production-br', 'tim'], description: 'Please select cluster which you want to update')
+      string(name: 'USE_IMAGE', defaultValue: '', description: 'Specify image number which you want to use for deploy. So if you want use this image gcr.io/callmyapp/frontier-app:v379
+      you should enter only 379. Should be blank if u want build a new image.')
+      booleanParam(name: 'DELETE_DEPLOYMENT', description: 'Check if you want to delete all service pods before new deployment')
+      booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build container only without deployment update')
+      booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
+      choice(name: 'FRONTIER_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+      choice(name: 'CONFIGS_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+      gitParameter branchFilter: 'origin.*/(.*)', defaultValue: 'master', name: 'FRONTIER_BRANCH', type: 'PT_BRANCH', useRepository: 'https://github.com/mbteswedenab/lucy-coil-server.git'
+      gitParameter branchFilter: 'origin.*/(.*)', defaultValue: 'master', name: 'CONFIGS_BRANCH', type: 'PT_BRANCH', useRepository: 'https://github.com/mbteswedenab/dma-configs.git'
     }
     environment {
         PASS_TO_CONF_DIR = "api/pipelines/sip/"
@@ -23,33 +36,11 @@ pipeline {
         }
         stage('directory preparation') {
           steps {
-            dir('dialmyappproxy') {
-                git branch: '$BRANCH', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dialmyappproxy.git'
+            dir('lucy-coil-server') {
+                git branch: '$FRONTIER_BRANCH', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/lucy-coil-server.git'
             }
             dir('dma-configs') {
                 git branch: 'master', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
-            }
-          }
-        }
-        stage('set ORIGIN_BRANCH') {
-          steps {
-            script {
-              if (binding.variables.containsKey('BRANCH')) {
-                  ORIGIN_BRANCH = binding.variables.get('BRANCH').replace('refs/heads', 'origin')
-                  return [
-                       ORIGIN_BRANCH: ORIGIN_BRANCH,
-                       GCS_FOLDER: 'gs://sip-updates/' + ORIGIN_BRANCH,
-                       ]
-              }
-            }
-          }
-        }
-        stage('env preparation') {
-          steps {
-            script {
-              sh "chmod +x ./dma-configs/api/deploy/env.sh"
-              sh "./dma-configs/api/deploy/env.sh"
-              sh "printenv"
             }
           }
         }
