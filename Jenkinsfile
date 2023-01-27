@@ -18,6 +18,7 @@ pipeline {
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
       choice(name: 'FRONTIER_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
       choice(name: 'CONFIGS_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+    }
     environment {
         PASS_TO_CONF_DIR = "api/pipelines/sip/"
         CHAT_ID="-222791277"
