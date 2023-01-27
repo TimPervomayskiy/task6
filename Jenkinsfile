@@ -18,25 +18,20 @@ pipeline {
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
       choice(name: 'FRONTIER_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
       choice(name: 'CONFIGS_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
+
+      listGitBranches(
+        branchFilter: 'origin.*/(.*)',
+        defaultValue: 'default',
+        name: 'test_BRANCH',
+        type: 'BRANCH',
+        remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
+        credentialsId: 'git_new')
     }
     environment {
         PASS_TO_CONF_DIR = "api/pipelines/sip/"
         CHAT_ID="-222791277"
     }
     stages {
-        stage('test_ branch') {
-          steps {
-            script {
-              listGitBranches(
-                branchFilter: 'origin.*/(.*)',
-                defaultValue: 'default',
-                name: 'test_BRANCH',
-                type: 'BRANCH',
-                remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
-                credentialsId: 'git_new')
-            }
-          }
-        }
         stage('clean direstory') {
           steps {
             script {
