@@ -40,10 +40,12 @@ pipeline {
     stages {
         stage('test direstory') {
           steps {
+            nodejs('node-js-15') {
             script {
               sh "bash ./check_js.sh"
             }
           }
+        }
         }
       }
       post {
