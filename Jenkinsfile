@@ -38,28 +38,9 @@ pipeline {
         CHAT_ID="-222791277"
     }
     stages {
-        stage('clean direstory') {
-          steps {
-            script {
-              step([$class: 'WsCleanup'])
-            }
-          }
-        }
-        stage('directory preparation') {
-          steps {
-            dir('dma-configs') {
-                git branch: 'master', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/dma-configs.git'
-            }
-            dir('lucy-coil-server') {
-                git branch: '$FRONTIER_BRANCH', credentialsId: 'git_new', url: 'https://github.com/mbteswedenab/lucy-coil-server.git'
-            }
-          }
-        }
         stage('test direstory') {
           steps {
             script {
-              sh "ls -l && cd ./dma-configs && git status && cd .."
-              sh "ls -l && cd ./lucy-coil-server && git status && cd .."
               sh "bash ./check_js.sh"
             }
           }
