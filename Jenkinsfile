@@ -20,7 +20,7 @@ pipeline {
       choice(name: 'CONFIGS_BRANCH', choices: ['master', 'dev', 'stable', 'test'], description: 'Please select branch which you want to use')
 
       listGitBranches(
-        branchFilter: 'origin.*/(.*)',
+        branchFilter: 'refs/heads.*/(.*)',
         defaultValue: 'default',
         name: 'test_BRANCH',
         type: 'BRANCH',
