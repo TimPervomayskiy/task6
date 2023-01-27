@@ -19,7 +19,7 @@ pipeline {
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
         defaultValue: '',
-        sortMode: 'DESCENDING_SMART',
+        sortMode: 'ASCENDING_SMART',
         name: 'FRONTIER_BRANCH',
         type: 'BRANCH',
         remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
@@ -27,7 +27,7 @@ pipeline {
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
         defaultValue: '',
-        sortMode: 'DESCENDING_SMART',
+        sortMode: 'ASCENDING_SMART',
         name: 'CONFIGS_BRANCH',
         type: 'BRANCH',
         remoteURL: 'https://github.com/mbteswedenab/dma-configs.git',
