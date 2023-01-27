@@ -18,14 +18,16 @@ pipeline {
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
-        defaultValue: 'master',
+        defaultValue: '',
+        sortMode: 'DESCENDING_SMART',
         name: 'FRONTIER_BRANCH',
         type: 'BRANCH',
         remoteURL: 'https://github.com/mbteswedenab/lucy-coil-server.git',
         credentialsId: 'git_new')
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
-        defaultValue: 'master',
+        defaultValue: '',
+        sortMode: 'DESCENDING_SMART',
         name: 'CONFIGS_BRANCH',
         type: 'BRANCH',
         remoteURL: 'https://github.com/mbteswedenab/dma-configs.git',
