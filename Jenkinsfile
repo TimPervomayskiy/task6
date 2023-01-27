@@ -18,7 +18,7 @@ pipeline {
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
-        defaultValue: 'master',
+        defaultValue: '',
         sortMode: 'ASCENDING_SMART',
         name: 'FRONTIER_BRANCH',
         type: 'BRANCH',
@@ -26,7 +26,7 @@ pipeline {
         credentialsId: 'git_new')
       listGitBranches(
         branchFilter: 'refs/heads.*/(.*)',
-        defaultValue: 'master',
+        defaultValue: '',
         sortMode: 'ASCENDING_SMART',
         name: 'CONFIGS_BRANCH',
         type: 'BRANCH',
@@ -60,6 +60,7 @@ pipeline {
             script {
               sh "ls -l && cd ./dma-configs && git status && cd .."
               sh "ls -l && cd ./lucy-coil-server && git status && cd .."
+              sh "bash ./check_js.sh"
             }
           }
         }
