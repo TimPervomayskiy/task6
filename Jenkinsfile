@@ -24,7 +24,7 @@ pipeline {
         CHAT_ID="-222791277"
     }
     stages {
-        stage('clean direstory') {
+        stage('test_ branch') {
           steps {
             script {
               listGitBranches(
