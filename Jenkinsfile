@@ -12,8 +12,8 @@ pipeline {
       'frontier-chat', 'frontier-customization'], description: 'Please select pods which you want to update')
       choice(name: 'CUSTOMER', choices: ['telcel', 'claro', 'tim', 'test'], description: 'Please select customer for which you want deploy build')
       choice(name: 'ENVIRONMENT', choices: ['development', 'production', 'production-br', 'tim'], description: 'Please select cluster which you want to update')
-      string(name: 'USE_IMAGE', defaultValue: '', description: 'Specify image number which you want to use for deploy. So if you want use this image gcr.io/callmyapp/frontier-app:v379
-      you should enter only 379. Should be blank if u want build a new image.')
+      string(name: 'USE_IMAGE', defaultValue: '', description: '''Specify image number which you want to use for deploy. So if you want use this image gcr.io/callmyapp/frontier-app:v379
+      you should enter only 379. Should be blank if u want build a new image.''')
       booleanParam(name: 'DELETE_DEPLOYMENT', description: 'Check if you want to delete all service pods before new deployment')
       booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build container only without deployment update')
       booleanParam(name: 'BUILD_FRONTEND', description: 'Check if you want to rebuild UI')
