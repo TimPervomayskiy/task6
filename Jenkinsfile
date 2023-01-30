@@ -23,18 +23,30 @@ pipeline {
       booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build container only without deployment update')
     }
     environment {
-        PASS_TO_CONF_DIR = "api/pipelines/sip/"
+        PASS_TO_CONF_DIR = "api/pipelines/sip"
         CHAT_ID="-222791277"
     }
     stages {
-        stage('test direstory') {
+        stage('clean direstory') {
           steps {
-            nodejs('node-js-15') {
             script {
-              sh "bash ./check_js.sh"
+              step([$class: 'WsCleanup'])
             }
           }
         }
+        stage('directory preparation') {
+          steps {
+            dir('dma-configs') {
+                git branch: 'master', credentialsId: 'e8f03bab-9bbb-4d52-90d9-face976d480d', url: 'git@github.com:mbteswedenab/dma-configs.git'
+            }
+          }
+        }
+        stage('env/configs preparation') {
+          steps {
+            script {
+                sh "cat ./dma-configs/$PASS_TO_CONF_DIR/Build_and_deploy_DMA_sip_Jenkinsfile"
+            }
+          }
         }
       }
       post {
