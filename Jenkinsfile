@@ -23,7 +23,7 @@ pipeline {
       booleanParam(name: 'BUILD_ONLY', description: 'Check if you want to build container only without deployment update')
     }
     environment {
-        PASS_TO_CONF_DIR = "api/pipelines/sip"
+        PASS_TO_CONF_DIR = "api/pipelines/sip/"
         CHAT_ID="-222791277"
     }
     stages {
